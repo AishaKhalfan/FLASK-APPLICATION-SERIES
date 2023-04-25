@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> FLASK APP</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <h1> FLASK APP LOGIN PAGE</h1>
-    <p> This is a simple flask app</p>
-    <!-- Another way of creating links in flask app using function name --> 
-    <nav>
-    <a href="{{url_for('index')}}">Home</a>
-    <a href="{{url_for('about_page')}}">About</a>
-    <a href="{{url_for('contacts_page')}}">Contact</a>
-    <a href="{{url_for('login_page')}}">Login</a>
-    </nav>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content%}
+<h4> FLASK APP LOGIN PAGE</h4>
+{% endblock %}

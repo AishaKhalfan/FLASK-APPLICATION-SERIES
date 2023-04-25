@@ -6,12 +6,14 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    {% if title %}
-        <h1>Flask Application {{title}}<h1>
-    {% else %}
-      Flask Application
-    {% endif %}
+    <h1> FLASK APP HOME PAGE</h1>
     <p> This is a simple flask app</p>
+    <!-- one way of creating links in flask app using route name 
+    <p> <a href="/about"> About </a> </p>
+    <p> <a href="/contact"> Contact </a> </p>
+    <p> <a href="/login"> Login </a> </p>
+    <p> <a href="/register"> Register </a> </p>
+    -->
     <!-- Another way of creating links in flask app using function name --> 
     <nav>
     <a href="{{url_for('index')}}">Home</a>
@@ -19,7 +21,5 @@
     <a href="{{url_for('contacts_page')}}">Contact</a>
     <a href="{{url_for('login_page')}}">Login</a>
     </nav>
-    {% block content%}
-    {% endblock %}
 </body>
 </html>
