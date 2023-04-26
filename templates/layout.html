@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title> FLASK APP</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
 </head>
 <body>
     {% if title %}
-        <h1>Flask Application {{title}}<h1>
+        <h1>Flask Application: {{title}}<h1>
     {% else %}
       Flask Application
     {% endif %}
-    <p> This is a simple flask app</p>
-    <!-- Another way of creating links in flask app using function name --> 
-    <nav>
-    <a href="{{url_for('index')}}">Home</a>
-    <a href="{{url_for('about_page')}}">About</a>
-    <a href="{{url_for('contacts_page')}}">Contact</a>
-    <a href="{{url_for('login_page')}}">Login</a>
+    
+    <nav class="navbar">
+        <a href="{{url_for('index')}}">Home</a>
+        <a href="{{url_for('about_page')}}">About</a>
+        <a href="{{url_for('signup_page')}}">Signup</a>
+        <a href="{{url_for('contacts_page')}}">Contact</a>
+        <a href="{{url_for('login_page')}}">Login</a>
     </nav>
+
     {% block content%}
     {% endblock %}
+    <footer>
+        <div class="footer">
+
+        </div>
+    </footer>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
 </body>
 </html>

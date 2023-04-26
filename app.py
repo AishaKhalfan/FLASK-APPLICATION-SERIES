@@ -1,7 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 app = Flask(__name__)
 
+app.secret_key = 'secret'
 
 posts=[
     {
@@ -26,6 +30,27 @@ posts=[
     },
 ]
 
+class signupForm(FlaskForm):
+    username = StringField(label='Username',validators=[DataRequired(message="username should not be blank"),
+                                                          Length(min=5, max=25)])
+    email= StringField(label='Email', validators=[DataRequired(message="email should not be blank"), 
+                                                  Length(min=5, max=45, message="email should be between 5 and 45 characters")])
+    password = PasswordField(label='Password', validators=[DataRequired(message="password should not be blank"),
+                                                           Length(min=5, max=12, message="password should be between 5 and 12 characters")])
+    
+    confirm_password= PasswordField(label='Confirm Password', validators=[DataRequired(message="password should not be blank"), 
+                                                                          Length(min=5, max=12, message="password should be between 5 and 12 characters"), 
+                                                                          EqualTo('password', message="passwords should match")])
+    submit = SubmitField(label='Sign Up')    
+
+class LoginForm(FlaskForm):
+    email = StringField(label='Email', validators=[DataRequired(message="email should not be blank"),
+                                                         Length(min=5, max=25)])
+    password = PasswordField(label='Password', validators=[DataRequired(message="password should not be blank"),
+                                                           Length(min=5, max=12, message="password should be between 5 and 12 characters")])
+    submit = SubmitField(label='Login')
+
+
 @app.route('/')
 def index():
     #return 'Hello World!'
@@ -36,13 +61,26 @@ def index():
     }
     return render_template('index.html', **context)
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup_page():
+    form= signupForm()
+
+    if request.method == 'POST':
+        return 'Form posted'
+
+    context= {
+        'form': form
+    }
+
+    return render_template('signup.html', **context)
 
 @app.route('/about')
 def about_page():
     #return 'About page'
     title = 'About Page'
     context = {
-        'title': title
+        'title': title,
+        'posts': posts
     }
     return render_template('about.html', **context)
 
@@ -51,8 +89,10 @@ def login_page():
     #return 'The login page'
     
     title = 'Login Page'
+    form= LoginForm()
     context = {
-        'title': title
+        'title': title,
+        'form': form
     }
     return render_template('login.html', **context)
 
